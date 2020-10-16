@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo-app
+  name : mongo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-app-pod
+  template:
+    metadata:
+      labels:
+        app: mongo-app-pod
+    spec: 
+      containers :
+      - name : mongo-db
+        volumeMounts:
+        - mountPath : /var/lib/mongo
+          name : mo-data
+        image: mongo:4.2
+        ports : 
+        - containerPort : 27017
+      volumes : 
+        - name: mo-data
+          persistentVolumeClaim:
+            claimName: mo-data-pvc
+      restartPolicy: Always
+
+---
+apiVersion : v1
+kind : Service
+metadata : 
+  labels :
+    app: mongo-app-pod
+  name : mongodb-service
+spec: 
+  type: ClusterIP
+  ports:
+  - port : 27017
+    targetPort : 27017
+  selector : 
+    app : mongo-app-pod
+  
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mo-data-pvc
+spec:
+  storageClassName: generic
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi

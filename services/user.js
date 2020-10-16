@@ -1,7 +1,7 @@
 /*
  * @file: user.js
  * @description: Services regarding users.
- * @date: 20.7.2018
+ * @date: 15.10.2020
  * @author:sheenam
  * */
 import User from "../collections/User";

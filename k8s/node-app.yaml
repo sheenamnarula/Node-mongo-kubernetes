@@ -1,0 +1,41 @@
+apiVersion : apps/v1
+kind : Deployment
+metadata : 
+  labels : 
+    app : node-app
+  name : node-app
+spec:
+  replicas : 1
+  selector :
+    matchLabels : 
+      app : node-app-pod
+  template : 
+    metadata : 
+      labels : 
+        app : node-app-pod
+    spec :
+      containers : 
+      - name: node-application
+        env :
+        - name : DB_URI
+          value : mongodb://mongodb-service:27017/node-application
+        image : sheenam1993/node-application
+        ports : 
+        - containerPort: 3007
+      restartPolicy: Always
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: node-app-pod
+  name: node-app-service
+spec:
+  ports:
+  - port: 8080
+    targetPort: 3007
+    nodePort: 30007
+  selector:
+    app: node-app-pod
+  type: NodePort
