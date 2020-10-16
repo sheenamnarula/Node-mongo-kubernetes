@@ -1,6 +1,6 @@
 # Post Links  
 
-## For Kubernetes architectire
+## For Kubernetes architecture
 ```
 http://sheenamnarula93.com/post/kubernetes-part-1/
 
