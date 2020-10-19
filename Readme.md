@@ -29,9 +29,35 @@ minikube start
 ```
 3. Now run below commands : 
 
+To create persistent volume : 
+```
+kubectl apply -f k8s/persistentVol.yaml           
+
+```
+
+To create claim for persistent volume (required for pods to access the volume):
+
+```
+kubectl apply -f k8s/persistentVolClaim.yaml
+
+```
+To deploy mongo service : 
 ```
 kubectl apply -f k8s/mongodb.yaml
-kubectl apply-f k8s/node-app.yaml
+
+```
+
+To deploy node application (will run on port 30007): 
+```
+kubectl apply -f k8s/node-app.yaml
+```
+
+In case, you want to practice multiple applications to access
+same volume, run one more application(port number :30009) :
+
+```
+kubectl apply -f k8s/node-app-2.yaml
+
 ```
 4. Run command to check for deployment : we will use minikube dashboard for ease.
 

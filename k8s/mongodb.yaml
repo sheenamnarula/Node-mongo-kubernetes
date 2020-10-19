@@ -44,15 +44,4 @@ spec:
     app : mongo-app-pod
   
 
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mo-data-pvc
-spec:
-  storageClassName: generic
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 500Mi
+
